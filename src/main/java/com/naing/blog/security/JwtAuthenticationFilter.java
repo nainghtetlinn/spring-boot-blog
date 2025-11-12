@@ -33,7 +33,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (token != null) {
                 UserDetails userDetails = authenticationService.validateToken(token);
 
-                var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null,
                         userDetails.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -41,7 +42,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (userDetails instanceof BlogUserDetails) {
                     request.setAttribute("userId", ((BlogUserDetails) userDetails).getId());
                 }
-
             }
         } catch (Exception ex) {
             // Do not throw exceptions, just don't authenticate the user
