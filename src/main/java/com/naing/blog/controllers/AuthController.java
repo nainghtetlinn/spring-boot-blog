@@ -11,6 +11,7 @@ import com.naing.blog.domain.dtos.AuthResponse;
 import com.naing.blog.domain.dtos.LoginRequest;
 import com.naing.blog.services.AuthenticationService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,7 +21,8 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping
+    @Operation(summary = "Login user")
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         UserDetails userDetails = authenticationService.authenticate(loginRequest.getEmail(),
                 loginRequest.getPassword());

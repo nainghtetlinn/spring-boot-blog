@@ -13,5 +13,5 @@ spring:
     show-sql: true
 
 jwt:
-  secret: helloworldsuperlongsecret
+  secret: 5009f19c69a769077db7ef62c250b31f460a19868e30ee294aa1f25b859bfac3
 
