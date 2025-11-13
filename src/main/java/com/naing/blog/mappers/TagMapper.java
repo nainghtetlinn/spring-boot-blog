@@ -8,7 +8,7 @@ import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
 import com.naing.blog.domain.PostStatus;
-import com.naing.blog.domain.dtos.TagResponse;
+import com.naing.blog.domain.dtos.TagDto;
 import com.naing.blog.domain.entities.Post;
 import com.naing.blog.domain.entities.Tag;
 
@@ -16,7 +16,7 @@ import com.naing.blog.domain.entities.Tag;
 public interface TagMapper {
 
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "calculatePostCount")
-    TagResponse toTagResponse(Tag tag);
+    TagDto toTagResponse(Tag tag);
 
     @Named("calculatePostCount")
     default long calculatePostCount(Set<Post> posts) {

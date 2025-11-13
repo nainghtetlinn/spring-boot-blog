@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.naing.blog.domain.dtos.CreateTagsRequest;
-import com.naing.blog.domain.dtos.TagResponse;
+import com.naing.blog.domain.dtos.TagDto;
 import com.naing.blog.domain.entities.Tag;
 import com.naing.blog.mappers.TagMapper;
 import com.naing.blog.services.TagService;
@@ -33,9 +33,9 @@ public class TagController {
 
     @Operation(summary = "List all tags")
     @GetMapping
-    public ResponseEntity<List<TagResponse>> getAllTags() {
+    public ResponseEntity<List<TagDto>> getAllTags() {
         List<Tag> tags = tagService.getTags();
-        List<TagResponse> tagResponses = tags
+        List<TagDto> tagResponses = tags
                 .stream()
                 .map(tagMapper::toTagResponse)
                 .toList();
@@ -44,9 +44,9 @@ public class TagController {
 
     @Operation(summary = "Create tags")
     @PostMapping()
-    public ResponseEntity<List<TagResponse>> createTags(@Valid @RequestBody CreateTagsRequest createTagsRequest) {
+    public ResponseEntity<List<TagDto>> createTags(@Valid @RequestBody CreateTagsRequest createTagsRequest) {
         List<Tag> savedTags = tagService.createTags(createTagsRequest.getNames());
-        List<TagResponse> createdTagResponses = savedTags.stream()
+        List<TagDto> createdTagResponses = savedTags.stream()
                 .map(tagMapper::toTagResponse)
                 .toList();
         return new ResponseEntity<>(createdTagResponses, HttpStatus.CREATED);
