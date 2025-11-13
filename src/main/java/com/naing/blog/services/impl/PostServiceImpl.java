@@ -9,6 +9,7 @@ import com.naing.blog.domain.PostStatus;
 import com.naing.blog.domain.entities.Category;
 import com.naing.blog.domain.entities.Post;
 import com.naing.blog.domain.entities.Tag;
+import com.naing.blog.domain.entities.User;
 import com.naing.blog.repositories.PostRepository;
 import com.naing.blog.services.CategoryService;
 import com.naing.blog.services.PostService;
@@ -48,6 +49,11 @@ public class PostServiceImpl implements PostService {
         }
 
         return postRepository.findAllByStatus(PostStatus.PUBLISHED);
+    }
+
+    @Override
+    public List<Post> getDraftPosts(User user) {
+        return postRepository.findAllByAuthorAndStatus(user, PostStatus.DRAFT);
     }
 
 }

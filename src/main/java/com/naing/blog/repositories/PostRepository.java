@@ -10,6 +10,7 @@ import com.naing.blog.domain.PostStatus;
 import com.naing.blog.domain.entities.Category;
 import com.naing.blog.domain.entities.Post;
 import com.naing.blog.domain.entities.Tag;
+import com.naing.blog.domain.entities.User;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
@@ -20,4 +21,6 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> findAllByStatusAndTags(PostStatus status, Tag tag);
 
     List<Post> findAllByStatus(PostStatus status);
+
+    List<Post> findAllByAuthorAndStatus(User author, PostStatus status);
 }
