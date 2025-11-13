@@ -116,6 +116,12 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post not found id: " + id));
     }
 
+    @Override
+    public void deletePost(UUID id) {
+        Post post = getPost(id);
+        postRepository.delete(post);
+    }
+
     private Integer calculateReadingTime(String content) {
         if (content == null || content.isEmpty()) {
             return 0;
