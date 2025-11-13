@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.naing.blog.domain.CreatePostRequest;
+import com.naing.blog.domain.UpdatePostRequest;
 import com.naing.blog.domain.entities.Post;
 import com.naing.blog.domain.entities.User;
 
@@ -13,4 +14,6 @@ public interface PostService {
     List<Post> getDraftPosts(User user);
 
     Post createPost(User user, CreatePostRequest createPostRequest);
+
+    Post updatePost(UUID id, UpdatePostRequest updatePostRequest);
 }

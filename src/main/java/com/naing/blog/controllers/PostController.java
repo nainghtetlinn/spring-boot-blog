@@ -4,8 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.naing.blog.domain.CreatePostRequest;
+import com.naing.blog.domain.UpdatePostRequest;
 import com.naing.blog.domain.dtos.CreatePostRequestDto;
 import com.naing.blog.domain.dtos.PostDto;
+import com.naing.blog.domain.dtos.UpdatePostRequestDto;
 import com.naing.blog.domain.entities.Post;
 import com.naing.blog.domain.entities.User;
 import com.naing.blog.mappers.PostMapper;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping(path = "/api/v1/posts")
@@ -67,6 +71,17 @@ public class PostController {
         PostDto createPostDto = postMapper.toDto(createdPost);
 
         return new ResponseEntity<>(createPostDto, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Update post")
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable UUID id,
+            @Valid @RequestBody UpdatePostRequestDto updatePostRequestDto) {
+        UpdatePostRequest updatePostRequest = postMapper.toUpdatePostRequest(updatePostRequestDto);
+        Post updatedPost = postService.updatePost(id, updatePostRequest);
+        PostDto updatedPostDto = postMapper.toDto(updatedPost);
+
+        return new ResponseEntity<>(updatedPostDto, HttpStatus.OK);
     }
 
 }
